@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+
+     <com.lookstudio.anywhere.view.LViewSlidingMenu
+        android:id         = "@+id/view_sliding_menu"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:background  = "@drawable/bg_menu"
+    	android:visibility="visible"/>
+     
+    <com.lookstudio.anywhere.view.LInterceptTouchEventLayout 
+        android:id         = "@+id/view_content"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:background   = "@drawable/bg_home_style_1">
+        
+	   <com.lookstudio.anywhere.blureffect.TopCenterImageView
+	        android:id="@+id/normal_image"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent" />
+	
+	    <com.lookstudio.anywhere.blureffect.TopCenterImageView
+	        android:id="@+id/blurred_image"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:alpha="0"/>
+	
+		<!-- <com.lookstudio.anywhere.view.PullToRefreshListView
+	        android:id="@+id/pull_to_refresh_listview"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent" 
+	        android:divider="@null" /> -->
+        
+        <com.lookstudio.anywhere.view.MyPullToRefreshListView
+            xmlns:swipe="http://schemas.android.com/apk/res/com.lookstudio.anywhere"
+	        android:id="@+id/pull_to_refresh_listview"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft = "15dip"
+	        android:layout_marginRight = "15dip" 
+	        android:scrollbars="none"
+	        android:divider="@null"
+	        android:listSelector="#00000000"
+	        android:dividerHeight="15dip"
+	        swipe:swipeFrontView="@+id/frontview"
+	        swipe:swipeBackView="@+id/backview"
+	        swipe:swipeCloseAllItemsWhenMoveList="true"
+	        swipe:swipeOffsetLeft="120dip"
+	        swipe:swipeMode="left" />
+        
+   
+		
+        <!-- 菜单开关、定位图标和位置 -->
+       	<ImageView 
+            android:id         = "@+id/view_menu_switch"
+            android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:padding           = "8dip"
+    		android:layout_gravity  = "left"
+    		android:src          = "@drawable/selector_menu_switch"/>
+        			
+		<FrameLayout
+		    android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+    		android:visibility   = "gone"
+    		android:layout_margin = "20dip">
+		    
+			<LinearLayout
+			    android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:orientation="horizontal"
+	    		android:layout_gravity  = "right">
+			    
+				<ImageView 
+		            android:layout_width="wrap_content"
+		    		android:layout_height="wrap_content"
+		    		android:padding           = "15dip"
+		    		android:src          = "@drawable/img_my_location"/>
+			    
+				<TextView
+				    android:id        = "@+id/view_my_location"
+				    android:layout_width="wrap_content"
+		    		android:layout_height="wrap_content"
+		    		android:layout_gravity = "center"
+		    		android:textAppearance="@style/TextStyle_Small"
+		    		android:layout_marginLeft = "5dip"
+		    		android:text          = "正在获取位置"/>
+			</LinearLayout>
+    	</FrameLayout>
+    </com.lookstudio.anywhere.view.LInterceptTouchEventLayout>
+   
+   <include
+       android:id = "@+id/lyt_choice_photo_source"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       layout = "@layout/map_photo_source_choice"
+       android:visibility="gone"/>
+</FrameLayout>

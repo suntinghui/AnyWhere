@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background   = "@drawable/bg_comment_preview"
+    android:orientation="vertical" >
+    
+    <com.lookstudio.anywhere.view.PagedView
+        android:id          = "@+id/view_page"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"/>
+    
+      <!-- 顶部 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:background   = "@android:color/white"
+    	android:padding      = "12dip"
+    	android:layout_gravity = "top">
+        
+        <TextView
+            android:id          = "@+id/view_close_page"
+            android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:textAppearance="@style/TextStyle_Small"
+    		android:textColor    = "@color/color_black"
+    		android:layout_alignParentRight="true"
+    		android:text="@string/str_button_close"/>
+        
+        <TextView
+            android:id          = "@+id/view_page_indicator"
+            android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+    		android:gravity     = "center"
+    		android:textAppearance="@style/TextStyle_Small"
+    		android:textColor    = "@color/color_black"
+    		android:layout_toLeftOf="@id/view_close_page"
+    		android:text="3 of 8"/>
+    </RelativeLayout>
+</FrameLayout>

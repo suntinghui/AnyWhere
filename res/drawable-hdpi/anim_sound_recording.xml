@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/map_sound_view_1" android:duration="150" />
+    <item android:drawable="@drawable/map_sound_view_2" android:duration="150" />
+	<item android:drawable="@drawable/map_sound_view_3" android:duration="150" />
+	<item android:drawable="@drawable/map_sound_view_4" android:duration="150" />
+	<item android:drawable="@drawable/map_sound_view_5" android:duration="150" />
+	<item android:drawable="@drawable/map_sound_view_6" android:duration="150" />
+	<item android:drawable="@drawable/map_sound_view_7" android:duration="150" />
+</animation-list>

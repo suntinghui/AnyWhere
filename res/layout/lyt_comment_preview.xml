@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity = "bottom"
+    android:background="@drawable/bg_comment_preview"
+    android:orientation="vertical" >
+    
+		<!-- 日期 -->
+    	<TextView
+    	    android:id         = "@+id/view_preview_date"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity = "right|center"
+	    	android:gravity = "center"
+	    	android:paddingRight      = "25dip"
+	    	android:paddingTop     = "8dip"
+	    	android:paddingBottom  = "8dip"
+	    	android:textAppearance="@style/TextStyle_Large"
+	    	android:textColor="@color/color_black"
+	    	android:text    = "2014/03/20"/>
+    		
+    	 <TextView
+	        android:layout_width="match_parent"
+	    	android:layout_height="3dip"
+			android:background="@color/color_grey"/>
+    	 
+    	 <FrameLayout
+    	    android:id         = "@+id/group_preview_content"
+    	    android:layout_width="match_parent"
+	    	android:layout_height="150dip">
+    	     
+    	 </FrameLayout>
+    	 
+    	 
+    	 <TextView
+	        android:layout_width="match_parent"
+	    	android:layout_height="3dip"
+			android:background="@color/color_grey"/>
+    	    	
+	   	<GridView 
+	   	    android:id="@+id/GridView_toolbar"  
+	        android:layout_height="wrap_content" 
+	        android:layout_width="match_parent"
+	        android:listSelector="#00000000"/>
+    	 
+</LinearLayout>

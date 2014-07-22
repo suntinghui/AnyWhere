@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id        = "@+id/layout_photo_choice"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop = "15dip"
+    	android:weightSum="2">
+    	
+        <LinearLayout 
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	android:gravity      = "center"
+        	android:layout_weight="1">
+		   	<ImageView
+		        android:id="@+id/map_photo_camera"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity = "center"
+		        android:src="@drawable/map_photo_camera" >
+    		</ImageView>
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	android:gravity      = "center"
+        	android:layout_weight="1">
+			<ImageView
+		        android:id="@+id/map_photo_my"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/map_photo_my" >
+	    	</ImageView>
+        </LinearLayout>
+        
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/map_photo_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_marginTop = "8dip"
+        android:layout_marginBottom = "8dip" >
+
+        <LinearLayout
+            android:id="@+id/map_sroll_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

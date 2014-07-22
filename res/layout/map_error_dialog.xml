@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e0000000" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:paddingTop="5dip"
+            android:text="@string/str_title_driving_reminder"
+            android:textColor="@android:color/black"
+            android:textAppearance="@style/TextStyle_Medium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:textAppearance="@style/TextStyle_Small"
+            android:gravity="center"
+            android:paddingBottom="5dip"
+            android:text="@string/str_msg_driving_reminder"
+            android:textColor="@android:color/black" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation  = "horizontal"
+            android:weightSum="2">
+         <Button
+            android:id="@+id/map_error_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:textAppearance="@style/TextStyle_Medium"
+            android:text="@string/str_button_confirm"
+            android:layout_weight="1"
+            android:padding  = "8dip"
+            android:textColor="@android:color/holo_blue_light" />
+         
+         <ImageView
+            android:layout_width="1dip"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+                 
+         <Button
+            android:id="@+id/map_error_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:textAppearance="@style/TextStyle_Medium"
+            android:text="@string/str_button_cancel"
+            android:layout_weight="1"
+            android:padding  = "8dip"
+            android:textColor="@android:color/holo_blue_light" />
+        </LinearLayout>
+       
+    </LinearLayout>
+
+</RelativeLayout>

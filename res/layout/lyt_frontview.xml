@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 上层 -->
+	<LinearLayout 
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/myfrontview"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background   = "@drawable/bg_white_patch"
+	    android:orientation="horizontal" >
+	    
+	    <!-- 截屏 -->
+		<com.lookstudio.anywhere.bitmap.views.AsyncImageView 
+		    android:id = "@+id/view_record_screenshot"
+		    android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:scaleType="fitXY"
+	    	android:src="@drawable/img_user_icon_normal"/>
+		
+		<!-- 驾驶记录  -->
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:orientation="vertical" >
+		 
+		    <!-- 日期 -->
+		    <TextView
+		        android:id         = "@+id/view_record_date"
+		        android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_gravity = "center"
+		    	android:textAppearance="@style/TextStyle_Large"
+		    	android:textStyle="bold"
+		    	android:textColor     = "@color/color_black"
+		    	android:text         = "2014/03/07"/>
+		    
+		    <!-- 起点、终点、距离、时间 -->
+			<LinearLayout 
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:orientation="horizontal" >
+			    
+					<ImageView 
+					    android:id = "@+id/view_record_overview_image"
+					    android:layout_width="wrap_content"
+				    	android:layout_height="match_parent"
+				    	android:scaleType="fitXY"
+				    	android:src="@drawable/img_drive_record_overview"/>
+					
+					<FrameLayout 
+					    android:layout_width="match_parent"
+					    android:layout_height="match_parent"
+					    android:orientation="vertical" >
+						<TextView
+					        android:id         = "@+id/view_record_startend"
+					        android:layout_width="wrap_content"
+					    	android:layout_height="wrap_content"
+					    	android:layout_gravity = "top|center_horizontal"
+					    	android:singleLine   = "true"
+					    	android:textAppearance="@style/TextStyle_Small"
+					    	android:textColor     = "@color/color_black"
+					    	android:textStyle     ="bold"
+					    	android:text         = "西丽至蛇口"/>
+						
+						<TextView
+					        android:id         = "@+id/view_record_distance"
+					        android:layout_width="wrap_content"
+					    	android:layout_height="wrap_content"
+					    	android:layout_gravity = "center"
+					    	android:singleLine   = "true"
+					    	android:textAppearance="@style/TextStyle_Small"
+					    	android:textColor     = "@color/color_black"
+					    	android:text         = "25.99km"/>
+									
+						<TextView
+					        android:id         = "@+id/view_record_time"
+					        android:layout_width="wrap_content"
+					    	android:layout_height="wrap_content"
+					    	android:singleLine   = "true"
+					    	android:layout_gravity = "bottom|center_horizontal"
+					    	android:textAppearance="@style/TextStyle_Small"
+					    	android:textColor     = "@color/color_black"
+					    	android:text          = "00:25:30"/>
+					</FrameLayout>	   
+					 
+			</LinearLayout>
+	    </LinearLayout>
+	</LinearLayout>
+

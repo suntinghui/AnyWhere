@@ -1,0 +1,55 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+	<com.amap.api.maps.MapView 
+	    android:id="@+id/mapview"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" />
+
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+    	android:layout_height="match_parent">
+	    
+		<include
+		    android:id          = "@+id/view_driving_record"
+		    android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop ="true"
+		    layout = "@layout/lyt_recording"/>
+		
+		<ImageView 
+		    android:id = "@+id/view_back_from_map"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@id/view_driving_record"
+			android:layout_alignParentLeft="true"
+			android:layout_marginTop      = "50dip"
+		    android:src="@drawable/selector_back"/>
+				
+		<include
+		    android:id          = "@+id/view_map_type_control"
+		    android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@id/view_driving_record"
+			android:layout_alignParentRight="true"
+		    layout = "@layout/lyt_change_map_type"/>
+				
+		<include
+		    android:id          = "@+id/view_bottom_control"
+		    android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom ="true"
+		    layout = "@layout/lyt_bottom"/>
+		
+	</RelativeLayout>
+	
+	<include
+		    android:id          = "@+id/view_comment_preview"
+		    android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+		    layout = "@layout/lyt_comment_preview"/>
+	
+</FrameLayout>
