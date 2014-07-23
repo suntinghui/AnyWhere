@@ -32,6 +32,8 @@ public class LCreateTrackProxy {
 	
 	public void createTrack(final LCreateTrackInfo info,final Context context,final OnFinish2Listener onFinishListener)
 	{
+		LLog.info("createTrack" + "111111");
+
 		if(TEST_MODE)
 		{
 			new Handler().postDelayed(new Runnable()

@@ -758,7 +758,7 @@ public class HomeActivity extends CommonActivity{
 		Long tsLong = System.currentTimeMillis()/1000;
 		String ts = tsLong.toString();
 		LCreateTrackInfo info = new LCreateTrackInfo(ori,dst,len,dur,coords, ts);
-		createTrackProxy.createTrack(info, getApplicationContext(), new OnFinish2Listener()
+		OnFinish2Listener listener = new  OnFinish2Listener()
 		{
 
 			public void onFinish(final boolean successful, final String errorInfo) {
@@ -798,7 +798,10 @@ public class HomeActivity extends CommonActivity{
 				
 			}
 			
-		});
+		};
+		
+		Context content = getApplicationContext();
+		createTrackProxy.createTrack(info, content, listener);
 	    	
 	}
 }
