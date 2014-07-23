@@ -2,50 +2,16 @@ package com.lookstudio.anywhere;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import zh.wang.android.apis.yweathergetter4a.WeatherInfo;
 import zh.wang.android.apis.yweathergetter4a.YahooWeather;
 import zh.wang.android.apis.yweathergetter4a.YahooWeather.SEARCH_MODE;
 import zh.wang.android.apis.yweathergetter4a.YahooWeatherInfoListener;
-
-import com.amap.api.location.AMapLocation;
-import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
-
-import com.lookstudio.anywhere.model.LDriveRecord;
-import com.lookstudio.anywhere.model.LDriveRecordProxy;
-import com.lookstudio.anywhere.model.LLocationManager;
-import com.lookstudio.anywhere.model.LLocationManager.LLocationChangedListener;
-import com.lookstudio.anywhere.model.LLoginProxy;
-import com.lookstudio.anywhere.model.LRegisterInfo;
-import com.lookstudio.anywhere.model.LSaver;
-import com.lookstudio.anywhere.model.LWeatherProxy;
-import com.lookstudio.anywhere.model.TaskHandler;
-import com.lookstudio.anywhere.model.TaskHandler.Task;
-import com.lookstudio.anywhere.util.LCommonUtil;
-import com.lookstudio.anywhere.util.LConstant;
-import com.lookstudio.anywhere.util.LLog;
-import com.lookstudio.anywhere.util.LScreenUtil;
-
-import com.lookstudio.anywhere.util.ToastUtil;
-import com.lookstudio.anywhere.util.sound.PhotoUtil;
-import com.lookstudio.anywhere.view.HomeAdapter;
-
-import com.lookstudio.anywhere.view.LMyLocationMediator;
-import com.lookstudio.anywhere.view.LSlidingMenuMediator;
-import com.lookstudio.anywhere.view.LWeatherMediator;
-import com.lookstudio.anywhere.view.MyPullToRefreshListView;
-import com.lookstudio.anywhere.view.MyPullToRefreshListView.OnRefreshListener;
-import com.lookstudio.anywhere.whether.LWeatherInfo;
-import com.lookstudio.anywhere.whether.LWeatherUpdater;
-import com.lookstudio.anywhere.whether.LWeatherUpdater.OnGotWeatherInfoListener;
-
 //import com.lookstudio.anywhere.view.PullToRefreshListView;
 //import com.lookstudio.anywhere.view.PullToRefreshListView.OnRefreshListener;
-
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -63,30 +29,51 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Switch;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.SimpleAdapter.ViewBinder;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
 import com.lookstudio.anywhere.app.LApplication;
 import com.lookstudio.anywhere.bitmap.BitmapLoader;
 import com.lookstudio.anywhere.bitmap.caches.LMyDiskCache;
-import com.lookstudio.anywhere.blureffect.*;
+import com.lookstudio.anywhere.blureffect.Blur;
+import com.lookstudio.anywhere.blureffect.ImageUtils;
+import com.lookstudio.anywhere.model.LCreateTrackInfo;
+import com.lookstudio.anywhere.model.LCreateTrackProxy;
+import com.lookstudio.anywhere.model.LCreateTrackProxy.OnFinish2Listener;
+import com.lookstudio.anywhere.model.LDriveRecord;
+import com.lookstudio.anywhere.model.LDriveRecordProxy;
+import com.lookstudio.anywhere.model.LLocation;
+import com.lookstudio.anywhere.model.LLocationManager;
+import com.lookstudio.anywhere.model.LSaver;
+import com.lookstudio.anywhere.model.TaskHandler;
+import com.lookstudio.anywhere.model.TaskHandler.Task;
+import com.lookstudio.anywhere.util.LCommonUtil;
+import com.lookstudio.anywhere.util.LConstant;
+import com.lookstudio.anywhere.util.LLog;
+import com.lookstudio.anywhere.util.LScreenUtil;
+import com.lookstudio.anywhere.util.ToastUtil;
+import com.lookstudio.anywhere.util.sound.PhotoUtil;
+import com.lookstudio.anywhere.view.HomeAdapter;
+import com.lookstudio.anywhere.view.LMyLocationMediator;
+import com.lookstudio.anywhere.view.LSlidingMenuMediator;
+import com.lookstudio.anywhere.view.MyPullToRefreshListView;
+import com.lookstudio.anywhere.view.MyPullToRefreshListView.OnRefreshListener;
+import com.lookstudio.anywhere.whether.LWeatherInfo;
+import com.lookstudio.anywhere.whether.LWeatherUpdater;
+import com.lookstudio.anywhere.whether.LWeatherUpdater.OnGotWeatherInfoListener;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class HomeActivity extends CommonActivity{
 
@@ -109,11 +96,17 @@ public class HomeActivity extends CommonActivity{
 	private Runnable            delayTask;
 	private final       boolean TEST_PULL_TO_REFRESH = false;
 	private float alpha;
+	private ProgressDialog progressDialog;
+	private LCreateTrackProxy createTrackProxy;
+	
 	//Blue:END
 	
 	public static final String ACTION_MODIFY_USER_ICON = "action_maoddiy_user_icon";
 	public static final String ACTION_LOGOUT = "action_logout";
 	private static final boolean JUMP_HOME = false;
+	
+	private IWXAPI wxApi;  
+	private String WX_APP_ID = "wx02fdaec6049ca437";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +114,12 @@ public class HomeActivity extends CommonActivity{
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		final View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_home, null);
 		setContentView(view);
+		
+		//实例化  
+		wxApi = WXAPIFactory.createWXAPI(this, WX_APP_ID);  
+		wxApi.registerApp(WX_APP_ID);  
+		
+		wechatShare(1);
 		mBitmapLoader  = new BitmapLoader(this,((LApplication)getApplication()).getBitmapCache(),new LMyDiskCache(getApplicationContext()));
 		init(view);
 		
@@ -157,6 +156,22 @@ public class HomeActivity extends CommonActivity{
 		registerReceiver(receiver, filter);
 	}
 	
+	private void wechatShare(int flag){  
+	    WXWebpageObject webpage = new WXWebpageObject();  
+	    webpage.webpageUrl = "http";  
+	    WXMediaMessage msg = new WXMediaMessage(webpage);  
+	    msg.title = "摩托帮";  
+	    msg.description = "我的骑行轨迹";  
+	    //这里替换一张自己工程里的图片资源  
+	    Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);  
+	    msg.setThumbImage(thumb);  
+	      
+	    SendMessageToWX.Req req = new SendMessageToWX.Req();  
+	    req.transaction = String.valueOf(System.currentTimeMillis());  
+	    req.message = msg;  
+	    req.scene = flag==0?SendMessageToWX.Req.WXSceneSession:SendMessageToWX.Req.WXSceneTimeline;  
+	    wxApi.sendReq(req);  
+	} 
 	@Override
 	public void onResume()
 	{
@@ -392,7 +407,7 @@ public class HomeActivity extends CommonActivity{
 				}
 			});
 */
-			adapter = new HomeAdapter(getApplicationContext(),mBitmapLoader,listView);
+			adapter = new HomeAdapter(this,mBitmapLoader,listView);
 			listView.setAdapter(adapter);
 			
 			listView.setOnRefreshListener(new OnRefreshListener()
@@ -724,5 +739,66 @@ public class HomeActivity extends CommonActivity{
 
 			}
 		}
+	}
+	
+	public void shareDriveRecord(LDriveRecord record)
+	{
+		String ori = record.start;
+		String dst = record.end;
+		String len = record.distanceInMeter +"";
+		String dur = record.timeInSeconds +"";
+		ArrayList<String> coordsList = new ArrayList<String>();
+		for(int i=0; i<record.locations.size();i++){
+			LLocation location = record.locations.get(i);
+			coordsList.add(location.longitude+"");
+			coordsList.add(location.latitude+"");
+		}
+		String coords = coordsList.toString();
+		progressDialog = ProgressDialog.show(this, "", this.getString(R.string.str_registering), true,false);
+		Long tsLong = System.currentTimeMillis()/1000;
+		String ts = tsLong.toString();
+		LCreateTrackInfo info = new LCreateTrackInfo(ori,dst,len,dur,coords, ts);
+		createTrackProxy.createTrack(info, getApplicationContext(), new OnFinish2Listener()
+		{
+
+			public void onFinish(final boolean successful, final String errorInfo) {
+				
+				runOnUiThread(new Runnable()
+				{
+
+					@Override
+					public void run() {
+						if(null != progressDialog)
+						{
+							progressDialog.dismiss();
+							progressDialog = null;
+						}
+						
+						if(successful)
+						{
+//							onRegisterSuccess();
+							Log.i("create track tag", "success");
+						}
+						else
+						{
+							AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+							builder.setTitle(R.string.str_fail_to_register);
+							if(!"".equals(errorInfo))
+							{
+								builder.setMessage(errorInfo);
+							}
+							builder.setPositiveButton(R.string.str_button_close,null);
+							builder.show();
+						}
+						
+					}
+					
+				}); 
+		
+				
+			}
+			
+		});
+	    	
 	}
 }

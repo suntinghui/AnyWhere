@@ -13,8 +13,8 @@ public class LLocation implements Serializable{
 
 	private static final long serialVersionUID = 5017628152415593944L;
 	
-	public double latitude;
-	public double longitude;
+	public double latitude;//经度
+	public double longitude;// 纬度
 	public String shortAddress;
 	public String longAddress;
 	

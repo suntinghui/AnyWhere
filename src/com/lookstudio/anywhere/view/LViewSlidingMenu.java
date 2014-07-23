@@ -48,7 +48,7 @@ import android.widget.TextView;
 public class LViewSlidingMenu extends LinearLayout {
 
 	private final int mShowDuration = 200;
-	private final int mHideDuration = 100;
+	private final int mHideDuration = 600;
 	private ImageView userIconView;
 	private TextView usernameView;
 	//private MenuAdapter mMenuAdapter;

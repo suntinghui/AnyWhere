@@ -3,21 +3,39 @@ package com.lookstudio.anywhere.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+
+
+
+
+
+
+
+import com.lookstudio.anywhere.HomeActivity;
+import com.lookstudio.anywhere.LoginActivity;
 import com.lookstudio.anywhere.R;
 import com.lookstudio.anywhere.bitmap.BitmapLoader;
 import com.lookstudio.anywhere.interfaces.LMediator;
 import com.lookstudio.anywhere.interfaces.LMediatorable;
+import com.lookstudio.anywhere.model.LCreateTrackInfo;
+import com.lookstudio.anywhere.model.LCreateTrackProxy;
 import com.lookstudio.anywhere.model.LDriveOverviewInfo;
 import com.lookstudio.anywhere.model.LDriveRecord;
+import com.lookstudio.anywhere.model.LLocation;
+import com.lookstudio.anywhere.model.LLoginProxy;
+import com.lookstudio.anywhere.model.LRegisterInfo;
 import com.lookstudio.anywhere.model.LSaver;
+import com.lookstudio.anywhere.model.LLoginProxy.OnFinishListener;
 import com.lookstudio.anywhere.util.LCommonUtil;
 import com.lookstudio.anywhere.util.LLog;
 import com.lookstudio.anywhere.util.ToastUtil;
@@ -32,6 +50,8 @@ public class HomeAdapter extends android.widget.BaseAdapter{
 	private ArrayList<LMediatorable> items = new ArrayList<LMediatorable>(8);
 	private BitmapLoader bitmapLoader;
 	private MyPullToRefreshListView listView;
+	private ProgressDialog progressDialog;
+	private LCreateTrackProxy createTrackProxy;
 
 	public HomeAdapter(Context context,BitmapLoader mBitmapLoader,MyPullToRefreshListView listView)
 	{
@@ -39,6 +59,8 @@ public class HomeAdapter extends android.widget.BaseAdapter{
 		this.inflater = LayoutInflater.from(context);
 		this.context = context;
 		this.listView = listView;
+		
+		createTrackProxy = new LCreateTrackProxy();
 	}
 	
 	public void updateWeatherInfo(LWeatherInfo weatherInfo)
@@ -93,8 +115,10 @@ public class HomeAdapter extends android.widget.BaseAdapter{
 	{
 		ToastUtil.show(context, "恭喜，点击了分享");
 		LLog.info("shareDriveRecord:" + record);
-		//listView.closeOpenedItems();
+		((HomeActivity) context).shareDriveRecord(record);
 	}
+	
+	
 	
 	public void loadData(LMediatorable weatherInfo,LMediatorable overviewInfo,List<LDriveRecord> records)
 	{

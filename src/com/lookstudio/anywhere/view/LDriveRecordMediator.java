@@ -79,6 +79,7 @@ public class LDriveRecordMediator implements LMediator{
 			@Override
 			public void onClick(View view) {
 				((HomeAdapter)adapter).shareDriveRecord(record);
+				
 			}
 			
 		});

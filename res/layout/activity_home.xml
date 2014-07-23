@@ -41,6 +41,7 @@
 	        android:layout_height="match_parent"
 	        android:layout_marginLeft = "15dip"
 	        android:layout_marginRight = "15dip" 
+	        android:layout_marginBottom="10dip"
 	        android:scrollbars="none"
 	        android:divider="@null"
 	        android:listSelector="#00000000"

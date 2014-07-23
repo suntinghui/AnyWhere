@@ -3,18 +3,18 @@
     package="com.lookstudio.anywhere"
     android:versionCode="1"
     android:versionName="@string/str_version_name" >
-    
-	<supports-screens 
-	   android:largeScreens="true"
-       android:normalScreens="true" 
-       android:anyDensity="true"
-       android:smallScreens="true">
-	    
-	</supports-screens>
-	
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" >
+    </supports-screens>
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="16" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,47 +26,50 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
     <application
+        android:name="com.lookstudio.anywhere.app.LApplication"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:debuggable="true"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
-        android:name="com.lookstudio.anywhere.app.LApplication" >
-       <meta-data
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="51300cc131ab9ebefd7cfdcb58a0018e" />
-         
+
         <activity
             android:name="com.lookstudio.anywhere.LoginActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden" >
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-       <activity
+        <activity
             android:name="com.lookstudio.anywhere.HomeActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme        = "@style/theme_home_screen" >
+            android:screenOrientation="portrait"
+            android:theme="@style/theme_home_screen" >
         </activity>
-        
         <activity
             android:name="com.lookstudio.anywhere.MainActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden"
-             android:theme        = "@style/theme_map_screen" >
+            android:screenOrientation="portrait"
+            android:theme="@style/theme_map_screen" >
         </activity>
-        
         <activity
             android:name="com.lookstudio.anywhere.AboutUsActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden" >
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" >
         </activity>
-        
+        <activity
+            android:name="com.lookstudio.anywhere.wxapi.WXEntryActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
