@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lookstudio.anywhere.util.LLog;
+import com.lookstudio.anywhere.util.StringUtil;
 
 public abstract class AbstractRequest implements LIRequest {
 
@@ -32,6 +33,7 @@ public abstract class AbstractRequest implements LIRequest {
 	public static final String TIME       = "ts";
 	
 	public static final String BASE_URL = "http://115.47.56.228:80/motorapp/api";
+//	public static final String BASE_URL = "http://192.168.4.106:8080/motorapp/api";
 	
 	@Override
 	public HttpEntity getEntity() {
@@ -83,12 +85,13 @@ public abstract class AbstractRequest implements LIRequest {
 	}
 
 	protected String commonQueryString(String userId,String sk) {
+		long ts = System.currentTimeMillis()/1000;
 		HashMap<String, String> map = new HashMap<String,String>();
 		map.put(VER, "1");
 		map.put(CLIENT_ID, CLENTID_ANDROID);
 		map.put(USER_ID,userId);
-		map.put(SIGNATURE,getSignature(userId,sk,System.currentTimeMillis()));
-		map.put(TIME,"" + System.currentTimeMillis());
+		map.put(SIGNATURE,getSignature(userId,sk,ts));
+		map.put(TIME,"" + ts);
 		
 		return toString(map);
 	}

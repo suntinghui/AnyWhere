@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.lookstudio.anywhere.http.Constant;
 import com.lookstudio.anywhere.http.LHttpCommunication;
 import com.lookstudio.anywhere.http.LResponse;
 import com.lookstudio.anywhere.model.TaskHandler.Task;

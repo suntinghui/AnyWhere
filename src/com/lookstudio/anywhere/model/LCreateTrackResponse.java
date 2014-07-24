@@ -1,0 +1,27 @@
+package com.lookstudio.anywhere.model;
+
+public class LCreateTrackResponse {
+
+	private String id;
+	
+	
+	public LCreateTrackResponse(){}
+	public LCreateTrackResponse(String id) {
+		super();
+		this.id = id;
+	}
+	
+
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "LCreateTrackResponse [id=" + id+"]";
+	}
+
+	
+}

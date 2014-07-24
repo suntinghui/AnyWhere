@@ -4,10 +4,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.lookstudio.anywhere.http.Constant;
 import com.lookstudio.anywhere.http.LHttpCommunication;
 import com.lookstudio.anywhere.http.LResponse;
 import com.lookstudio.anywhere.util.LLog;
 import com.lookstudio.anywhere.util.LThreadFactory;
+import com.lookstudio.anywhere.util.ToastUtil;
 
 public class LCreateTrackProxy {
 
@@ -62,24 +64,16 @@ public class LCreateTrackProxy {
 				String result = LHttpCommunication.post(request);
 				if(null != result)
 				{
-					LResponse<LRegisterResponse> response = request.parse(result);
+					LResponse<LCreateTrackResponse> response = request.parse(result);
 					if(response.isResultOk())
 					{
-						LLog.info("succeed to register" + response.getBean().toString());
-//						LSaver saver = new LSaver(context);
-//						saver.saveRegisterInfo(info);
-//						saver.saveLoginInfo(info.getLoginInfo());
-//						
-//						//cache session
-//						LSessionInfo info = new LSessionInfo(response.getBean());
-//						LCacheManager.get().cache("session", info);
-//						
-//						new UserManager(context).onNewUserRegister();
-//						
-//						if(null != onFinishListener)
-//						{
-//							onFinishListener.onFinish(true, "");
-//						}
+						LCreateTrackResponse res = response.getBean();
+						Constant.shareId = res.getId();
+						if(null != onFinishListener)
+						{
+							onFinishListener.onFinish(true, "");
+						}
+
 					}
 					else
 					{

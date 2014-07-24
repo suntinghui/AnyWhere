@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lookstudio.anywhere.http.AbstractRequest;
+import com.lookstudio.anywhere.http.Constant;
 import com.lookstudio.anywhere.http.LResponse;
 import com.lookstudio.anywhere.util.LLog;
 
@@ -51,6 +52,8 @@ public class LLoginRequest extends AbstractRequest {
 				LLoginResponse res = new LLoginResponse();
 				res.setUserId(jsonObj.getString("uid"));
 				res.setSignature(jsonObj.getString("sk"));
+				Constant.uid = jsonObj.getString("uid");
+				Constant.sk = jsonObj.getString("sk");
 				
 				response.setBean(res);
 			}

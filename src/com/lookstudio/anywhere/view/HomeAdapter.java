@@ -113,8 +113,6 @@ public class HomeAdapter extends android.widget.BaseAdapter{
 	
 	public void shareDriveRecord(LDriveRecord record)
 	{
-		ToastUtil.show(context, "恭喜，点击了分享");
-		LLog.info("shareDriveRecord:" + record);
 		((HomeActivity) context).shareDriveRecord(record);
 	}
 	

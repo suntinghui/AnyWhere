@@ -1,6 +1,8 @@
 package com.lookstudio.anywhere.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LCreateTrackInfo implements Serializable{
 
@@ -13,11 +15,12 @@ public class LCreateTrackInfo implements Serializable{
 	 */
 	private String ori; // 出发点地址（文字描述）
 	private String dst; //目的地地址（文字描述）
-	private String len; //路程全长，单位：米
-	private String dur; //耗时，单位：秒
-	private String coords;//【数组】坐标集，格式：[lon1,lat1,lon2,lat2,…]
+	private double len; //路程全长，单位：米
+	private int dur; //耗时，单位：秒
+	private List<Double> coords;//【数组】坐标集，格式：[lon1,lat1,lon2,lat2,…]
 	private String ct; //创建时间，长整形时间戳格式
 	
+
 	public String getCt() {
 		return ct;
 	}
@@ -36,29 +39,29 @@ public class LCreateTrackInfo implements Serializable{
 	public void setDst(String dst) {
 		this.dst = dst;
 	}
-	public String getLen() {
+	public double getLen() {
 		return len;
 	}
-	public void setLen(String len) {
+	public void setLen(double len) {
 		this.len = len;
 	}
-	public String getDur() {
+	public int getDur() {
 		return dur;
 	}
-	public void setDur(String dur) {
+	public void setDur(int dur) {
 		this.dur = dur;
 	}
-	public String getCoords() {
+	public List<Double> getCoords() {
 		return coords;
 	}
-	public void setCoords(String coords) {
+	public void setCoords(ArrayList<Double> coords) {
 		this.coords = coords;
 	}
 	public LCreateTrackInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LCreateTrackInfo(String ori, String dst, String len, String dur, String coords, String ct) {
+	public LCreateTrackInfo(String ori, String dst, double len, int dur, List<Double> coords, String ct) {
 		super();
 		this.ori = ori;
 		this.dst = dst;

@@ -45,6 +45,7 @@ import com.lookstudio.anywhere.bitmap.BitmapLoader;
 import com.lookstudio.anywhere.bitmap.caches.LMyDiskCache;
 import com.lookstudio.anywhere.blureffect.Blur;
 import com.lookstudio.anywhere.blureffect.ImageUtils;
+import com.lookstudio.anywhere.http.Constant;
 import com.lookstudio.anywhere.model.LCreateTrackInfo;
 import com.lookstudio.anywhere.model.LCreateTrackProxy;
 import com.lookstudio.anywhere.model.LCreateTrackProxy.OnFinish2Listener;
@@ -52,6 +53,7 @@ import com.lookstudio.anywhere.model.LDriveRecord;
 import com.lookstudio.anywhere.model.LDriveRecordProxy;
 import com.lookstudio.anywhere.model.LLocation;
 import com.lookstudio.anywhere.model.LLocationManager;
+import com.lookstudio.anywhere.model.LLoginProxy;
 import com.lookstudio.anywhere.model.LSaver;
 import com.lookstudio.anywhere.model.TaskHandler;
 import com.lookstudio.anywhere.model.TaskHandler.Task;
@@ -59,6 +61,7 @@ import com.lookstudio.anywhere.util.LCommonUtil;
 import com.lookstudio.anywhere.util.LConstant;
 import com.lookstudio.anywhere.util.LLog;
 import com.lookstudio.anywhere.util.LScreenUtil;
+import com.lookstudio.anywhere.util.StringUtil;
 import com.lookstudio.anywhere.util.ToastUtil;
 import com.lookstudio.anywhere.util.sound.PhotoUtil;
 import com.lookstudio.anywhere.view.HomeAdapter;
@@ -118,6 +121,8 @@ public class HomeActivity extends CommonActivity{
 		//实例化  
 		wxApi = WXAPIFactory.createWXAPI(this, WX_APP_ID);  
 		wxApi.registerApp(WX_APP_ID);  
+		
+		createTrackProxy = new LCreateTrackProxy();
 		
 		wechatShare(1);
 		mBitmapLoader  = new BitmapLoader(this,((LApplication)getApplication()).getBitmapCache(),new LMyDiskCache(getApplicationContext()));
@@ -744,19 +749,29 @@ public class HomeActivity extends CommonActivity{
 	public void shareDriveRecord(LDriveRecord record)
 	{
 		String ori = record.start;
-		String dst = record.end;
-		String len = record.distanceInMeter +"";
-		String dur = record.timeInSeconds +"";
-		ArrayList<String> coordsList = new ArrayList<String>();
-		for(int i=0; i<record.locations.size();i++){
-			LLocation location = record.locations.get(i);
-			coordsList.add(location.longitude+"");
-			coordsList.add(location.latitude+"");
-		}
-		String coords = coordsList.toString();
-		progressDialog = ProgressDialog.show(this, "", this.getString(R.string.str_registering), true,false);
+		String dst = "上地";//record.end;
+		double len = record.distanceInMeter;
+		int dur = record.timeInSeconds;
+		String uid = Constant.uid;
+		String sk = Constant.sk;
 		Long tsLong = System.currentTimeMillis()/1000;
 		String ts = tsLong.toString();
+//		String sig = StringUtil.MD5Crypto(uid+"#"+sk+"#"+ts);
+
+		
+		ArrayList<Double> coords = new ArrayList<Double>();
+//		for(int i=0; i<record.locations.size();i++){
+//			LLocation location = record.locations.get(i);
+//			coordsList.add(location.longitude+"");
+//			coordsList.add(location.latitude+"");
+//		}
+		for(int i=0; i<2;i++){
+			LLocation location = record.locations.get(0);
+			coords.add(116.29916888);
+			coords.add(40.04470565);
+		}
+		progressDialog = ProgressDialog.show(this, "", "正在请求数据...", true,false);
+		
 		LCreateTrackInfo info = new LCreateTrackInfo(ori,dst,len,dur,coords, ts);
 		OnFinish2Listener listener = new  OnFinish2Listener()
 		{
@@ -782,7 +797,7 @@ public class HomeActivity extends CommonActivity{
 						else
 						{
 							AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-							builder.setTitle(R.string.str_fail_to_register);
+							builder.setTitle("请求数据失败");
 							if(!"".equals(errorInfo))
 							{
 								builder.setMessage(errorInfo);
